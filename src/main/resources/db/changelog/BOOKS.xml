@@ -1,0 +1,50 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+
+    <changeSet id="drop table books pg 3.1" author="zkalanderayan" runInTransaction="false">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="books"/>
+        </preConditions>
+        <dropTable tableName="books"/>
+    </changeSet>
+
+    <changeSet id="create table books pg 3.1" author="zkalanderyan" runInTransaction="false">
+        <preConditions onFail="MARK_RAN">
+        <not>
+                <tableExists tableName="books"/>
+            </not>
+        </preConditions>
+        <createTable tableName="books">
+            <column name="id" type="INTEGER" autoIncrement="true" >
+                <constraints nullable="false" primaryKey="true"></constraints>
+            </column>
+            <column name="title" type="VARCHAR(255)"  autoIncrement="false" >
+                <constraints nullable="false" ></constraints>
+            </column>
+            <column name="vendor_code" type="VARCHAR(255)" autoIncrement="false" >
+                <constraints nullable="false" ></constraints>
+            </column>
+            <column name="year" type="NUMERIC(19,0)" autoIncrement="false" >
+                <constraints nullable="false" ></constraints>
+            </column>
+            <column name="brand" type="VARCHAR(255)" autoIncrement="false" >
+                <constraints nullable="true" ></constraints>
+            </column>
+            <column name="stock" type="VARCHAR(255)" autoIncrement="false" >
+                <constraints nullable="true" ></constraints>
+            </column>
+            <column name="price" type="NUMERIC(25,4)" autoIncrement="false" >
+                <constraints nullable="false" ></constraints>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+
+
+
+
+</databaseChangeLog>
