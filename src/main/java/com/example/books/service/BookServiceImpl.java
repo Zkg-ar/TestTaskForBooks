@@ -8,6 +8,7 @@ import com.example.books.notifications.NTFMessages;
 import com.example.books.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,13 +33,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<BookDto> getAllBooks(Integer from,Integer size) {
+    public Page<BookDto> getAllBooks(Integer from, Integer size) {
         Pageable page = PageRequest.of(from / size, size);
         return bookRepository
                 .findAll(page)
-                .stream()
-                .map(BookMapper::toDto)
-                .collect(Collectors.toList());
+                .map(BookMapper::toDto);
+
     }
 
     @SneakyThrows

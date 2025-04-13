@@ -21,19 +21,19 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/static/**", "/webjars/**").permitAll()
+                        .requestMatchers("/", "/api/books").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")
+                        .loginPage("/authentication")
                         .loginProcessingUrl("/perform_login")
-                        .defaultSuccessUrl("/books", true)
-                        .failureUrl("/login?error=true")
+                        .defaultSuccessUrl("/api/books", true)
+                        .failureUrl("/authentication?error=true")
                         .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/perform_logout")
-                        .logoutSuccessUrl("/login?logout=true")
+                        .logoutSuccessUrl("/authentication?logout=true")
                         .permitAll()
                 );
 
